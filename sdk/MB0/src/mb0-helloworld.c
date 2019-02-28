@@ -46,12 +46,14 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "platform.h"
 #include <xil_io.h>
 
 
 // OCM memory used to communicate with CPU0
-#define COM_VAL  (*(volatile u32 *)(0xFFFF0000))
+#define COM_VAL (*(volatile u32 *)(0xFFFF0000))
+#define DOM_VAL (*(volatile u32 *)(0x20000000))
 
 void print(char *str);
 
@@ -59,15 +61,22 @@ int main()
 {
     init_platform();
     COM_VAL = 1;
-    while(1){
-    int i = 0;
 
-    print("MB0 : Hello World\n\r");
-    while(i < 1000000){
-    	i = i+1;
-    }
-    COM_VAL = 1 + COM_VAL ;
-    cleanup_platform();
+    print("MB0 : Initialized\n\r");
+
+    while(1){
+
+    	int i = 0;
+
+    	while(i < 1000000) {
+    		i++;
+    	}
+
+    	COM_VAL++;
+    	if (DOM_VAL % 5 == 0) {
+    		print("MBO: DOM_VAL is divisible by 5\r\n");
+    	}
+    	cleanup_platform();
     }
     return 0;
 }

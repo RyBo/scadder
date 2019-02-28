@@ -4,3 +4,4 @@
 *.str
 
 build/
+*_bsp/

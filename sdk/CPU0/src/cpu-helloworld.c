@@ -52,26 +52,22 @@
 
 
 // OCM memory used to communicate with CPU0
-#define COM_VAL  (*(volatile u32 *)(0xFFFF0000))
-
-
-
+#define COM_VAL (*(volatile u32 *)(0xFFFF0000))
+#define DOM_VAL (*(volatile u32 *)(0x20000000))
 
 int main()
 {
     init_platform();
     char buf[100];
-    while(1){
-    //COM_VAL = 0;
-    sprintf(buf, "CPU0 : COM_VAL = %u\n\r", COM_VAL);
-    xil_printf("CPU0 : Hello World \n\r");
+    DOM_VAL = 0;
 
-
-    while ((Xil_In32(STDOUT_BASEADDRESS + 0x2C) & 0x08) != 0x08);
-
-    cleanup_platform();
-    sleep(1);
-    xil_printf(buf);
+    xil_printf("CPU0 : Initialized\n\r");
+    while(1) {
+    	sprintf(buf, "CPU0 : COM_VAL = %u\n\r", COM_VAL);
+    	xil_printf(buf);
+    	DOM_VAL += 12;
+    	sleep(1);
+    	cleanup_platform();
     }
     return 0;
 }
