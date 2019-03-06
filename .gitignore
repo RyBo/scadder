@@ -2,6 +2,7 @@
 *.jou
 *.swp
 *.str
+.metadata
 
 build/
 *_bsp/
