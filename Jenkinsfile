@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('build hardware') {
             steps {
+                checkout scm
                 sh '/opt/Xilinx/Vivado/2015.4/settings64.sh'
                 sh '/opt/Xilinx/SDK/2015.4/settings64.sh'
                 sh '/opt/Xilinx/Vivado/2015.4/bin/vivado -mode batch -source $WORKSPACE/vivado/build.tcl'
