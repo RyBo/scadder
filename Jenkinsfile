@@ -5,9 +5,10 @@ pipeline {
             steps {
                 checkout scm
                 sh 'ls -al /opt/Xilinx/Vivado/2015.4/'
-                sh './opt/Xilinx/Vivado/2015.4/settings64.sh'
-                sh './opt/Xilinx/SDK/2015.4/settings64.sh'
-                sh './opt/Xilinx/Vivado/2015.4/bin/vivado -mode batch -source $WORKSPACE/vivado/build.tcl'
+                ls -al /opt/Xilinx/Vivado/2015.4/
+                ./opt/Xilinx/Vivado/2015.4/settings64.sh
+                ./opt/Xilinx/SDK/2015.4/settings64.sh
+                ./opt/Xilinx/Vivado/2015.4/bin/vivado -mode batch -source $WORKSPACE/vivado/build.tcl
             }
         }
         stage('generate bitsream') {
