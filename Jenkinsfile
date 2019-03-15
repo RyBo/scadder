@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage('build hardware') {
             steps {
-                checkout scm
                 sh 'ls -al /opt/Xilinx/Vivado/2015.4/'
-                ls -al /opt/Xilinx/Vivado/2015.4/
                 sh 'ls /opt/Xilinx/Vivado/2015.4/settings64.sh'
                 sh '/opt/Xilinx/Vivado/2015.4/settings64.sh'
                 sh '/opt/Xilinx/SDK/2015.4/settings64.sh'
