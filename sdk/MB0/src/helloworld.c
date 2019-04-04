@@ -46,27 +46,36 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "platform.h"
-#include <unistd.h>
 #include <xil_io.h>
 
 
+
 // OCM memory used to communicate with CPU0
-#define COM_VAL (*(volatile u32 *)(0xFFFF0000))
-#define DOM_VAL (*(volatile u32 *)(0x20000000))
+#define DRAM1_VAL (*(volatile u32 *)(0x00000000))
+#define DRAM2_VAL (*(volatile u32 *)(0x10000000))
+void print(char *str);
 
 int main()
 {
     init_platform();
-    char buf[100];
-    DOM_VAL = 0;
+    DRAM1_VAL = 1;
 
-    xil_printf("CPU0 : Initialized\n\r");
-    while(1) {
-    	sprintf(buf, "CPU0 : COM_VAL = %u\n\r", COM_VAL);
-    	xil_printf(buf);
-    	DOM_VAL += 12;
-    	sleep(1);
+    print("SM : Initialized\n\r");
+
+    while(1){
+
+    	int i = 0;
+
+    	while(i < 10000000) {
+    		i++;
+    	}
+
+    	DRAM1_VAL++;
+    	if (DRAM2_VAL % 5 == 0) {
+    		print("SM:Running \r\n");
+    	}
     	cleanup_platform();
     }
     return 0;

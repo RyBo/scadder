@@ -46,36 +46,37 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include "platform.h"
+#include <unistd.h>
 #include <xil_io.h>
 
 
 // OCM memory used to communicate with CPU0
-#define COM_VAL (*(volatile u32 *)(0xFFFF0000))
-#define DOM_VAL (*(volatile u32 *)(0x20000000))
+#define RT1_VAL (*(volatile u32 *)(0x40000000))
+#define RT2_VAL (*(volatile u32 *)(0x42000000))
 
-void print(char *str);
+// OCM memory used to communicate with CPU0
+#define DRAM1_VAL (*(volatile u32 *)(0x00000000))
+#define DRAM2_VAL (*(volatile u32 *)(0x10000000))
 
 int main()
 {
+	DRAM2_VAL = 0;
     init_platform();
-    COM_VAL = 1;
+    char buf1[300];
+    char buf2[100];
+    char buf3[100];
 
-    print("MB0 : Initialized\n\r");
-
-    while(1){
-
-    	int i = 0;
-
-    	while(i < 1000000) {
-    		i++;
-    	}
-
-    	COM_VAL++;
-    	if (DOM_VAL % 5 == 0) {
-    		print("MBO: DOM_VAL is divisible by 5\r\n");
-    	}
+    xil_printf("FS : Initialized\n\r");
+    while(1) {
+    	sprintf(buf1, "FS : RT1_VAL = %u ", RT1_VAL);
+    	sprintf(buf2, " : RT2_VAL = %u   ", RT2_VAL);
+    	sprintf(buf3, " : SM_VAL = %u \n\r",DRAM1_VAL);
+    	strcat(buf1, buf2);
+    	strcat(buf1, buf3);
+    	xil_printf(buf1);
+    	DRAM2_VAL ++;
+    	sleep(2);
     	cleanup_platform();
     }
     return 0;
