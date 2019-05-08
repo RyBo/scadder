@@ -28,36 +28,65 @@ See https://github.com/RyBo/scadder/wiki/Updating-the-Block-Design
 Project layout 
 ===
 ```
-├── sdk
-│   ├── build_project.tcl
-│   ├── CPU0
+vivado
+├── build.tcl
+├── export_hardware.tcl
+├── generate_bitstream.tcl
+└── src
+    ├── bd
+    │   └── design_1.tcl
+    └── hdl
+sdk
+├── build_project.tcl
+├── CPU0
+│   ├── Debug
+│   │   ├── CPU0.elf
+│   │   ├── CPU0.elf.size
+│   │   ├── makefile
+│   │   ├── objects.mk
+│   │   ├── sources.mk
 │   │   └── src
-│   │       ├── helloworld.c
-│   │       ├── lscript.ld
-│   │       ├── platform.c
-│   │       ├── platform_config.h
-│   │       └── platform.h
-│   ├── MB0
-│   │   └── src
-│   │       ├── helloworld.c
-│   │       ├── lscript.ld
-│   │       ├── platform.c
-│   │       ├── platform_config.h
-│   │       └── platform.h
-│   ├── RT1
-│   │   └── src
-│   │       ├── lscript.ld
-│   │       └── testperiph.c
-│   └── RT2
+│   │       ├── CPU0.d
+│   │       ├── CPU0.o
+│   │       ├── platform.d
+│   │       ├── platform.o
+│   │       └── subdir.mk
+│   └── src
+│       ├── helloworld.c
+│       ├── lscript.ld
+│       ├── platform.c
+│       ├── platform_config.h
+│       └── platform.h
+├── CPU1
+│   └── Debug
+│       ├── CPU1.elf
+│       ├── CPU1.elf.size
+│       ├── makefile
+│       ├── objects.mk
+│       ├── sources.mk
 │       └── src
-│           ├── lscript.ld
-│           └── testperiph.c
-├── util
-│   └── build.sh
-└── vivado
-    ├── build.tcl
-    ├── generate_bitstream.tcl
+│           ├── CPU1.d
+│           ├── CPU1.o
+│           ├── platform.d
+│           ├── platform.o
+│           └── subdir.mk
+├── MB0
+│   └── src
+│       ├── helloworld.c
+│       ├── lscript.ld
+│       ├── platform.c
+│       ├── platform_config.h
+│       └── platform.h
+├── RT1
+│   └── src
+│       ├── lscript.ld
+│       └── testperiph.c
+└── RT2
     └── src
-        └── bd
-            └── design_1.tcl
+        ├── lscript.ld
+        └── testperiph.c
+util
+├── build.sh
+├── deploy.sh
+└── spoof-mac
 ```
