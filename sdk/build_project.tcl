@@ -20,9 +20,7 @@ sdk import_projects "$origin_dir/../"
 
 puts "Creating Board Support Packages..."
 sdk create_bsp_project -name "CPU0_bsp" -hwproject $hw_name -proc "ps7_cortexa9_0" -os "standalone"
-sdk create_bsp_project -name "MB0_bsp" -hwproject $hw_name -proc "microblaze_0" -os "standalone"
-sdk create_bsp_project -name "RT1_bsp" -hwproject $hw_name -proc "microblaze_1" -os "standalone"
-sdk create_bsp_project -name "RT2_bsp" -hwproject $hw_name -proc "microblaze_2" -os "standalone"
+sdk create_bsp_project -name "CPU1_bsp" -hwproject $hw_name -proc "ps7_cortexa9_0" -os "standalone"
 
 puts "Building project..."
 sdk build
