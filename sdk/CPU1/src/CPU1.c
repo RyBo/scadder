@@ -52,30 +52,19 @@
 
 
 // OCM memory used to communicate with CPU0
-#define RT1_VAL (*(volatile u32 *)(0x40000000))
-#define RT2_VAL (*(volatile u32 *)(0x42000000))
-
-// OCM memory used to communicate with CPU0
-#define DRAM1_VAL (*(volatile u32 *)(0x00000000))
-#define DRAM2_VAL (*(volatile u32 *)(0x10000000))
+#define Command (*(volatile u32 *)(0x40000000))
+#define Bus (*(volatile u32 *)(0x42000000))
 
 int main()
 {
-	DRAM2_VAL = 0;
+	Command = 0x08000000;
     init_platform();
-    char buf1[300];
-    char buf2[100];
-    char buf3[100];
-
+    char buf[300];
+    Command = 0x00000000;
     xil_printf("FS : Initialized\n\r");
     while(1) {
-    	sprintf(buf1, "FS : RT1_VAL = %u ", RT1_VAL);
-    	sprintf(buf2, " : RT2_VAL = %u   ", RT2_VAL);
-    	sprintf(buf3, " : SM_VAL = %u \n\r",DRAM1_VAL);
-    	strcat(buf1, buf2);
-    	strcat(buf1, buf3);
-    	xil_printf(buf1);
-    	DRAM2_VAL ++;
+    	sprintf(buf, "FS : RT1_VAL = %u ", Bus);
+    	xil_printf(buf);
     	sleep(2);
     	cleanup_platform();
     }

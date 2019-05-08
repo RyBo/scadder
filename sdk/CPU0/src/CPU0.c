@@ -44,39 +44,54 @@
  *   uartlite    Configurable only in HW design
  *   ps7_uart    115200 (configured by bootrom/bsp)
  */
+#include "xparameters.h"
+#include "xil_io.h"
+#include "xbasic_types.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "platform.h"
-#include <xil_io.h>
-
-
-
-// OCM memory used to communicate with CPU0
-#define DRAM1_VAL (*(volatile u32 *)(0x00000000))
-#define DRAM2_VAL (*(volatile u32 *)(0x10000000))
-void print(char *str);
 
 int main()
 {
-    init_platform();
-    DRAM1_VAL = 1;
 
-    print("SM : Initialized\n\r");
-
-    while(1){
-
-    	int i = 0;
-
-    	while(i < 10000000) {
-    		i++;
-    	}
-
-    	DRAM1_VAL++;
-    	if (DRAM2_VAL % 5 == 0) {
-    		print("SM:Running \r\n");
-    	}
-    	cleanup_platform();
-    }
+	u32 addr_out;
+    xil_printf("Sub Mil std 1553 Software Zynq PS Under Test ....\n\r");
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x08000000);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x00000000);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x08000000);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x00000000);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x05E1E001);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x05E1E001);
+    xil_printf("%d\n\r",addr_out);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x05E1E001);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    //data been received
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x00000000);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x02E1E001);
+    xil_printf("%d\n\r",addr_out);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x07E1E001);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    // data been writen
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x07E1E001);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x07E1E001);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    Xil_Out32(XPAR_TEAM6_0_S00_AXI_BASEADDR,0x07E1E001);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    addr_out = Xil_In32(XPAR_TEAM6_0_S00_AXI_BASEADDR+4);
+    xil_printf("%d\n\r",addr_out);
+    xil_printf("%d\n\r",addr_out);
     return 0;
 }

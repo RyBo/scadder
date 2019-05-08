@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>MB0</name>
-	<comment>Created by SDK v2015.4. MB0_bsp - microblaze_0</comment>
+	<name>CPU1</name>
+	<comment>Created by SDK v2015.4. CPU1_bsp - ps7_cortexa9_0</comment>
 	<projects>
-		<project>MB0_bsp</project>
+		<project>CPU1_bsp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
